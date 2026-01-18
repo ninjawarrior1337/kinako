@@ -16,7 +16,7 @@ metadata:
   namespace: kube-system
 provisioner: nfs.csi.k8s.io
 parameters:
-  server: nfs-server.default.svc.cluster.local
+  server: nfs-server.kube-system.svc.cluster.local
   share: /mnt/Storage/k8s
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
