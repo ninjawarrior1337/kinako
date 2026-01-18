@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    tailscale.com/tailnet-fqdn: maru.tail5158.ts.net
+  name: nfs-server # service name
+  namespace: default
+spec:
+  externalName: placeholder # any value - will be overwritten by operator
+  type: ExternalName
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: maru-nfs-csi
+  namespace: default
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: nfs-server.default.svc.cluster.local
+  share: /mnt/Storage/k8s
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
+mountOptions:
+- nfsvers=4.1
