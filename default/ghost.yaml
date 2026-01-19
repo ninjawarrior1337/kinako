@@ -28,7 +28,7 @@ spec:
       className: tailscale
       annotations:
         tailscale.com/funnel: "true"
-      hosts: {}
+      hosts: []
       tls:
       - hosts:
         - ghost
