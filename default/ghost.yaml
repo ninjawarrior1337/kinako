@@ -23,3 +23,12 @@ spec:
   values:
     persistence:
       storageClass: maru-nfs-csi
+
+    ingress:
+      className: tailscale
+      annotations:
+        tailscale.com/funnel: "true"
+      hosts: {}
+      tls:
+      - hosts:
+        - ghost
