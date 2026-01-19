@@ -5,9 +5,9 @@ metadata:
   namespace: default
 spec:
   interval: 1h
-  url: oci://registry-1.docker.io/bitnamicharts/ghost
+  url: oci://registry-1.docker.io/cloudpirates/ghost
   ref:
-    semver: ">=25.0.4"
+    semver: ">=0.7.0"
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -20,9 +20,6 @@ spec:
   chartRef:
     name: ghost
     kind: OCIRepository
-  valuesFrom:
-  - kind: Secret
-    name: ghost-values
   values:
-    global:
-      defaultStorageClass: maru-nfs-csi
+    persistence:
+      storageClass: maru-nfs-csi
