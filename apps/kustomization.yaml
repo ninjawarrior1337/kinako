@@ -1,0 +1,6 @@
+namespace: apps
+resources:
+  - ns.yaml
+  - mc-data-persistentvolumeclaim.yaml
+  - mc-deployment.yaml
+  - mc-service.yaml

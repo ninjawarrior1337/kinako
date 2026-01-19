@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f compose.yaml
+    kompose.version: 1.37.0 (HEAD)
+  labels:
+    io.kompose.service: mc
+  name: mc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mc
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f compose.yaml
+        kompose.version: 1.37.0 (HEAD)
+      labels:
+        io.kompose.service: mc
+    spec:
+      containers:
+        - env:
+            - name: EULA
+              value: "TRUE"
+            - name: OPS
+              value: ninjawarrior1337
+          image: itzg/minecraft-server:latest
+          name: mc
+          ports:
+            - containerPort: 25565
+              protocol: TCP
+          stdin: true
+          tty: true
+          volumeMounts:
+            - mountPath: /data
+              name: mc-data
+      restartPolicy: Always
+      volumes:
+        - name: mc-data
+          persistentVolumeClaim:
+            claimName: mc-data
