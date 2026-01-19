@@ -1,0 +1,28 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ghost
+  namespace: default
+spec:
+  interval: 1h
+  url: oci://registry-1.docker.io/bitnamicharts/ghost
+  ref:
+    semver: ">=25.0.4"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ghost
+  namespace: default
+spec:
+  interval: 15m
+  timeout: 5m
+  chartRef:
+    name: ghost
+    kind: OCIRepository
+  valuesFrom:
+  - kind: Secret
+    name: ghost-values
+  values:
+    global:
+      defaultStorageClass: maru-nfs-csi
