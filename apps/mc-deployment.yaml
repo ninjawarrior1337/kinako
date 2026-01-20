@@ -6,7 +6,7 @@ metadata:
     kompose.version: 1.37.0 (HEAD)
   labels:
     io.kompose.service: mc
-  name: mc
+  name: minecraft
 spec:
   replicas: 1
   selector:
@@ -23,23 +23,23 @@ spec:
         io.kompose.service: mc
     spec:
       containers:
-        - env:
-            - name: EULA
-              value: "TRUE"
-            - name: OPS
-              value: ninjawarrior1337
-          image: itzg/minecraft-server:latest
-          name: mc
-          ports:
-            - containerPort: 25565
-              protocol: TCP
-          stdin: true
-          tty: true
-          volumeMounts:
-            - mountPath: /data
-              name: mc-data
+      - env:
+        - name: EULA
+          value: "TRUE"
+        - name: OPS
+          value: ninjawarrior1337
+        image: itzg/minecraft-server:latest
+        name: mc
+        ports:
+        - containerPort: 25565
+          protocol: TCP
+        stdin: true
+        tty: true
+        volumeMounts:
+        - mountPath: /data
+          name: mc-data
       restartPolicy: Always
       volumes:
-        - name: mc-data
-          persistentVolumeClaim:
-            claimName: mc-data
+      - name: mc-data
+        persistentVolumeClaim:
+          claimName: mc-data
