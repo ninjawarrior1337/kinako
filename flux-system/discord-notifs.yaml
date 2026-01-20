@@ -8,3 +8,23 @@ spec:
   type: discord
   secretRef:
     name: discord-webhook
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: discord
+  namespace: flux-system
+spec:
+  providerRef:
+    name: discord
+  eventMetadata:
+    summary: Cluster addons impacted
+    cluster: kinako
+  eventSeverity: error
+  eventSources:
+  - kind: GitRepository
+    name: '*'
+  - kind: Kustomization
+    name: '*'
+  - kind: HelmRelease
+    name: '*'
