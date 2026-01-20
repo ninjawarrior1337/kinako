@@ -29,7 +29,7 @@ spec:
         - name: OPS
           value: ninjawarrior1337
         - name: MEMORY
-          value: "2G"
+          value: "2.5G"
         image: itzg/minecraft-server:latest
         name: mc
         ports:
@@ -46,7 +46,7 @@ spec:
             cpu: "500m"
           limits:
             memory: "3G"
-            cpu: "1"
+            cpu: "2"
       restartPolicy: Always
       volumes:
       - name: mc-data
