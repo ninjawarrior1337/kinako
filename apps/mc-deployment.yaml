@@ -28,6 +28,8 @@ spec:
           value: "TRUE"
         - name: OPS
           value: ninjawarrior1337
+        - name: MEMORY
+          value: "2G"
         image: itzg/minecraft-server:latest
         name: mc
         ports:
@@ -38,6 +40,13 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: mc-data
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "500m"
+          limits:
+            memory: "3G"
+            cpu: "1"
       restartPolicy: Always
       volumes:
       - name: mc-data
