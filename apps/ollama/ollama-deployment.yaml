@@ -47,7 +47,6 @@ spec:
             limits:
               cpu: "8"
               memory: "8G"
-              nvidia.com/gpu: "1"
       restartPolicy: Always
       volumes:
         - name: ollama-claim0
