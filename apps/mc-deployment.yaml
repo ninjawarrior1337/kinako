@@ -29,7 +29,7 @@ spec:
         - name: OPS
           value: ninjawarrior1337
         - name: MEMORY
-          value: "2.5G"
+          value: "2684M"
         image: itzg/minecraft-server:latest
         name: mc
         ports:
