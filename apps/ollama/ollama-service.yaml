@@ -8,6 +8,8 @@ metadata:
     io.kompose.service: ollama
   name: ollama
 spec:
+  type: LoadBalancer
+  loadBalancerClass: tailscale
   ports:
     - name: "11434"
       port: 11434
