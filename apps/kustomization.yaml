@@ -1,6 +1,5 @@
 namespace: apps
 resources:
   - ns.yaml
-  - ./minecraft/mc-data-persistentvolumeclaim.yaml
-  - ./minecraft/mc-deployment.yaml
-  - ./minecraft/mc-service.yaml
+  - ./minecraft
+  - ./ollama

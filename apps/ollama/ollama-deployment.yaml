@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f compose.yaml
+    kompose.version: 1.37.0 (HEAD)
+  labels:
+    io.kompose.service: ollama
+  name: ollama
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: ollama
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f compose.yaml
+        kompose.version: 1.37.0 (HEAD)
+      labels:
+        io.kompose.service: ollama
+    spec:
+      containers:
+        - env:
+            - name: OLLAMA_KEEP_ALIVE
+              value: 24h
+            - name: NVIDIA_VISIBLE_DEVICES
+              value: all
+            - name: NVIDIA_DRIVER_CAPABILITIES
+              value: all
+          image: docker.io/ollama/ollama:latest
+          name: ollama
+          runtimeClass: nvidia
+          ports:
+            - containerPort: 11434
+              protocol: TCP
+          tty: true
+          volumeMounts:
+            - mountPath: /root/.ollama
+              name: ollama-claim0
+          resources:
+            requests:
+              cpu: "1"
+              memory: "2G"
+            limits:
+              cpu: "8"
+              memory: "8G"
+              nvidia.com/gpu: "1"
+      restartPolicy: Always
+      volumes:
+        - name: ollama-claim0
+          persistentVolumeClaim:
+            claimName: ollama-models-pvc

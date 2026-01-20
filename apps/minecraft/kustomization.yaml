@@ -1,0 +1,4 @@
+resources:
+  - ./mc-data-persistentvolumeclaim.yaml
+  - ./mc-deployment.yaml
+  - ./mc-service.yaml

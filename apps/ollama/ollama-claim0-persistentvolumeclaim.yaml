@@ -2,12 +2,12 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    io.kompose.service: mc-data
-  name: mc-data
+    io.kompose.service: ollama-claim0
+  name: ollama-models-pvc
 spec:
-  storageClassName: maru-nfs-csi
+  storageClassName: local-path
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 100Mi
