@@ -6,6 +6,15 @@ spec:
   addresses:
   - 192.168.3.1-192.168.3.254
 ---
+apiVersion: metallb.io/v1beta1
+kind: BFDProfile
+metadata:
+  name: opnsense-bfd
+  namespace: metallb-system
+spec:
+  receiveInterval: 380
+  transmitInterval: 270
+---
 apiVersion: metallb.io/v1beta2
 kind: BGPPeer
 metadata:
@@ -14,6 +23,7 @@ spec:
   myASN: 64513
   peerASN: 64512
   peerAddress: 192.168.0.1
+  bfdProfile: opnsense-bfd
 ---
 apiVersion: metallb.io/v1beta1
 kind: BGPAdvertisement
