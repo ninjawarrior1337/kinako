@@ -4,14 +4,15 @@ metadata:
   annotations:
     kompose.cmd: kompose convert -f compose.yaml
     kompose.version: 1.37.0 (HEAD)
-    tailscale.com/expose: "true"
+    # tailscale.com/expose: "true"
   labels:
     io.kompose.service: mc
   name: mc
 spec:
+  type: LoadBalancer
   ports:
-    - name: "25565"
-      port: 25565
-      targetPort: 25565
+  - name: "25565"
+    port: 25565
+    targetPort: 25565
   selector:
     io.kompose.service: mc
