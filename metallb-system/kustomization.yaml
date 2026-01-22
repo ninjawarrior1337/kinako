@@ -1,0 +1,6 @@
+namespace: metallb-system
+
+resources:
+- ns.yaml
+- github.com/metallb/metallb/config/native?ref=v0.15.3
+- config.yaml
