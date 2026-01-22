@@ -24,31 +24,31 @@ spec:
     spec:
       runtimeClassName: nvidia
       containers:
-        - env:
-            - name: OLLAMA_KEEP_ALIVE
-              value: 24h
-            - name: NVIDIA_VISIBLE_DEVICES
-              value: all
-            - name: NVIDIA_DRIVER_CAPABILITIES
-              value: all
-          image: docker.io/ollama/ollama:latest
-          name: ollama
-          ports:
-            - containerPort: 11434
-              protocol: TCP
-          tty: true
-          volumeMounts:
-            - mountPath: /root/.ollama
-              name: ollama-claim0
-          resources:
-            requests:
-              cpu: "1"
-              memory: "2G"
-            limits:
-              cpu: "8"
-              memory: "8G"
+      - env:
+        - name: OLLAMA_KEEP_ALIVE
+          value: 24h
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: all
+        - name: NVIDIA_DRIVER_CAPABILITIES
+          value: all
+        image: docker.io/ollama/ollama:0.14.3
+        name: ollama
+        ports:
+        - containerPort: 11434
+          protocol: TCP
+        tty: true
+        volumeMounts:
+        - mountPath: /root/.ollama
+          name: ollama-claim0
+        resources:
+          requests:
+            cpu: "1"
+            memory: "2G"
+          limits:
+            cpu: "8"
+            memory: "8G"
       restartPolicy: Always
       volumes:
-        - name: ollama-claim0
-          persistentVolumeClaim:
-            claimName: ollama-models-pvc
+      - name: ollama-claim0
+        persistentVolumeClaim:
+          claimName: ollama-models-pvc
