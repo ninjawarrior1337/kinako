@@ -10,7 +10,6 @@ metadata:
   name: mc
 spec:
   type: LoadBalancer
-  externalTrafficPolicy: Local
   ports:
   - name: "25565"
     port: 25565
