@@ -13,7 +13,7 @@ spec:
     matchLabels:
       io.kompose.service: ollama
   strategy:
-    type: Recreate
+    type: RollingUpdate
   template:
     metadata:
       annotations:
