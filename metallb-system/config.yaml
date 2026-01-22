@@ -19,7 +19,3 @@ apiVersion: metallb.io/v1beta1
 kind: BGPAdvertisement
 metadata:
   name: bgp-advertisement
-spec:
-  nodeSelectors:
-  - matchLabels:
-      kubernetes.io/hostname: kinako
