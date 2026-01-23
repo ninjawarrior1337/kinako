@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
     name: tailscale-secret-values
+    namespace: tailscale
 type: Opaque
 data:
     values.yaml: ENC[AES256_GCM,data:nw6Tf0+x2b7NaU6t754JoCKfWZ4dPA3DEDFQlWMP4DTlqwpQ0dih+VUYck9HeaXQKG4qxbj2bqUOnK6U4qr4I5ugTnMZy2vJVw2u1ftGTD/aIDF86c+NHtlAw0GwYAdR1JVp6IezMfD9jQ15AjDUQhCm02e8tQFR/Q==,iv:oaeKf7kTy6p5iE6EjFhNuD4WNvzrhWrov78tGBS73gM=,tag:ZcxB+q+HglccerUeMm5mFg==,type:str]

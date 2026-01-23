@@ -4,4 +4,12 @@ resources:
 - gotk-components.yaml
 - gotk-sync.yaml
 - discord-notifs.yaml
-- secrets.yaml
+
+patches:
+  - patch: |
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --sops-age-secret=sops-age-keys
+    target:
+      kind: Deployment
+      name: "kustomize-controller"
