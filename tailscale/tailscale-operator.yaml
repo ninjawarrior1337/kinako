@@ -22,6 +22,9 @@ spec:
       version: '>1.92.0'
   targetNamespace: tailscale
   interval: 1m0s
+  valuesFrom:
+    - kind: Secret
+      name: tailscale-secret-values
   values:
     operatorConfig:
       hostname: "kinako"
