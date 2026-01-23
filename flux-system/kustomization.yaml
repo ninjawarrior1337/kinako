@@ -7,9 +7,13 @@ resources:
 
 patches:
   - patch: |
-      - op: add
-        path: /spec/template/spec/containers/0/args/-
-        value: --sops-age-secret=sops-age-keys
-    target:
-      kind: Deployment
-      name: "kustomize-controller"
+      apiVersion: kustomize.toolkit.fluxcd.io/v1
+      kind: Kustomization
+      metadata:
+        name: flux-system
+        namespace: flux-system
+      spec:
+        decryption:
+          provider: sops
+          secretsRef:
+            name: sops-age
