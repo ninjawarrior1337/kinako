@@ -17,7 +17,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: strrl.dev
-      version: '>0.0.21'
+      version: '>=0.0.21'
   interval: 1m0s
   valuesFrom:
   - kind: Secret
