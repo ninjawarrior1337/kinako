@@ -30,7 +30,7 @@ spec:
           value: ninjawarrior1337
         - name: MEMORY
           value: "2684M"
-        image: ghcr.io/itzg/minecraft-server:2026.1.2-java25
+        image: ghcr.io/itzg/minecraft-server:2026.1.3-java25
         name: mc
         ports:
         - containerPort: 25565
