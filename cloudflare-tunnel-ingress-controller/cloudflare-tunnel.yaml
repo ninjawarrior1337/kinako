@@ -1,0 +1,24 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: strrl.dev
+spec:
+  interval: 1h0m0s
+  url: https://helm.strrl.dev
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cloudflare-tunnel-ingress-controller
+spec:
+  chart:
+    spec:
+      chart: cloudflare-tunnel-ingress-controller
+      sourceRef:
+        kind: HelmRepository
+        name: strrl.dev
+      version: '>0.0.21'
+  interval: 1m0s
+  valuesFrom:
+  - kind: Secret
+    name: cloudflare-tunnel-values
