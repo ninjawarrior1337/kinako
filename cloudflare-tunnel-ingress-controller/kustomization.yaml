@@ -1,5 +1,6 @@
 namespace: cloudflare-tunnel-ingress-controller
 
 resources:
+- ns.yaml
 - cloudflare-tunnel.yaml
 - ctic-values.yaml
