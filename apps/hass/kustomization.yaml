@@ -1,0 +1,10 @@
+namespace: apps
+
+resources:
+- 0-statefulset.yaml
+- 1-svc.yaml
+- 2-ingress.yaml
+
+images:
+- name: ghcr.io/home-assistant/home-assistant
+  newTag: "2026.1.3"

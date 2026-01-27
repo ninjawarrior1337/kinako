@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: home-assistant
+spec:
+  selector:
+    matchLabels:
+      app: home-assistant
+  serviceName: home-assistant
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: home-assistant
+    spec:
+      containers:
+      - name: home-assistant
+        image: ghcr.io/home-assistant/home-assistant:latest
+        tty: true
+        stdin: true
+        env:
+        - name: TZ
+          value: America/Los_Angeles
+        ports:
+        - containerPort: 8123
+          name: web
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: hass-data
+          mountPath: /config
+        - name: dbus
+          mountPath: /run/dbus
+          readOnly: true
+      volumes:
+      - name: dbus
+        hostPath:
+          path: /run/dbus
+  volumeClaimTemplates:
+  - metadata:
+      name: hass-data
+    spec:
+      accessModes: [ "ReadWriteOncePod" ]
+      storageClassName: maru-nfs-csi
+      resources:
+        requests:
+          storage: 1Gi
