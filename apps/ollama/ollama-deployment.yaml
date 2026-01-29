@@ -31,7 +31,7 @@ spec:
           value: all
         - name: NVIDIA_DRIVER_CAPABILITIES
           value: all
-        image: docker.io/ollama/ollama:0.15.1
+        image: docker.io/ollama/ollama:0.15.2
         name: ollama
         ports:
         - containerPort: 11434
