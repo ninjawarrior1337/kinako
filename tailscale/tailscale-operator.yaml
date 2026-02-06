@@ -27,6 +27,6 @@ spec:
       name: tailscale-secret-values
   values:
     operatorConfig:
-      hostname: "kinako"
+      hostname: "kinako-operator"
     apiServerProxyConfig:
       mode: "true"
