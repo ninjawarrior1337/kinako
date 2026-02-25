@@ -4,16 +4,25 @@
     "config:recommended"
   ],
   "kubernetes": {
-    "managerFilePatterns": ["/\\.yaml$/"]
+    "managerFilePatterns": [
+      "/\\.yaml$/"
+    ]
   },
   "packageRules": [
     {
       "description": "Ignore fluxcd system updates",
-      "matchPackagePatterns": ["^ghcr.io/fluxcd"],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "/^ghcr.io/fluxcd/"
+      ]
     },
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
       "automerge": true
     }
   ]
