@@ -23,6 +23,7 @@
         "pin",
         "digest"
       ],
+      "ignoreTests": true,
       "automerge": true
     }
   ]
