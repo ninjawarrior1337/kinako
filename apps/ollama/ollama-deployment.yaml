@@ -43,10 +43,8 @@ spec:
         resources:
           requests:
             cpu: "1"
-            memory: "2G"
           limits:
-            cpu: "8"
-            memory: "8G"
+            cpu: "12"
       restartPolicy: Always
       volumes:
       - name: ollama-claim0
