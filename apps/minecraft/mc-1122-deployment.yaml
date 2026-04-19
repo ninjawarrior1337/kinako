@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: mc-1122
+  name: minecraft-1122
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mc-1122
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: mc-1122
+    spec:
+      containers:
+      - env:
+        - name: EULA
+          value: "TRUE"
+        - name: OPS
+          value: ninjawarrior1337
+        - name: MEMORY
+          value: "2684M"
+        - name: VERSION
+          value: "1.12.2"
+        image: ghcr.io/itzg/minecraft-server:2025.4.0-java8
+        name: mc-1122
+        ports:
+        - containerPort: 25565
+          protocol: TCP
+        stdin: true
+        tty: true
+        volumeMounts:
+        - mountPath: /data
+          name: mc-1122-data
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "500m"
+          limits:
+            memory: "3G"
+            cpu: "2"
+        readinessProbe:
+          tcpSocket:
+            port: 25565
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          failureThreshold: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        livenessProbe:
+          tcpSocket:
+            port: 25565
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          failureThreshold: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+      restartPolicy: Always
+      volumes:
+      - name: mc-1122-data
+        persistentVolumeClaim:
+          claimName: mc-1122-data

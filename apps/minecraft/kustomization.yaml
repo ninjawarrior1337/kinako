@@ -2,3 +2,6 @@ resources:
   - ./mc-data-persistentvolumeclaim.yaml
   - ./mc-deployment.yaml
   - ./mc-service.yaml
+  - ./mc-1122-data-persistentvolumeclaim.yaml
+  - ./mc-1122-deployment.yaml
+  - ./mc-1122-service.yaml
