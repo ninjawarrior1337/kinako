@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opencode
+  labels:
+    app: opencode
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opencode
+  template:
+    metadata:
+      labels:
+        app: opencode
+    spec:
+      containers:
+      - name: opencode
+        image: ghcr.io/anomalyco/opencode:1.14.25
+        ports:
+        - containerPort: 8080
+          name: http
+        volumeMounts:
+        - name: workspace
+          mountPath: /workspace
+        env:
+        - name: TZ
+          value: America/Los_Angeles
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "4Gi"
+            cpu: "2"
+      volumes:
+      - name: workspace
+        persistentVolumeClaim:
+          claimName: opencode-workspace
