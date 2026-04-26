@@ -17,8 +17,9 @@ spec:
       containers:
       - name: opencode
         image: ghcr.io/anomalyco/opencode:1.14.25
+        command: ["opencode", "serve"]
         ports:
-        - containerPort: 8080
+        - containerPort: 4096
           name: http
         volumeMounts:
         - name: workspace

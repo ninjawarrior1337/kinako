@@ -8,8 +8,8 @@ spec:
   type: LoadBalancer
   loadBalancerClass: tailscale
   ports:
-  - port: 8080
-    targetPort: 8080
+  - port: 4096
+    targetPort: 4096
     name: http
   selector:
     app: opencode
