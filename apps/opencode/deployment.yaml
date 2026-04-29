@@ -29,6 +29,8 @@ spec:
         - name: workspace
           mountPath: /workspace
         env:
+        - name: HOME
+          value: /workspace
         - name: TZ
           value: America/Los_Angeles
         resources:
