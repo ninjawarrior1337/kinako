@@ -16,31 +16,31 @@ spec:
     spec:
       dnsConfig:
         options:
-        - name: ndots
-          value: "1"
+          - name: ndots
+            value: "1"
       containers:
-      - name: opencode
-        image: ghcr.io/anomalyco/opencode:1.14.33
-        command: ["opencode", "serve", "--hostname", "0.0.0.0"]
-        ports:
-        - containerPort: 4096
-          name: http
-        volumeMounts:
-        - name: workspace
-          mountPath: /workspace
-        env:
-        - name: HOME
-          value: /workspace
-        - name: TZ
-          value: America/Los_Angeles
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: "250m"
-          limits:
-            memory: "4Gi"
-            cpu: "2"
+        - name: opencode
+          image: ghcr.io/anomalyco/opencode:1.14.33
+          command: ["opencode", "serve", "--hostname", "0.0.0.0"]
+          ports:
+            - containerPort: 4096
+              name: http
+          volumeMounts:
+            - name: workspace
+              mountPath: /workspace
+          env:
+            - name: HOME
+              value: /workspace
+            - name: TZ
+              value: America/Los_Angeles
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "4Gi"
+              cpu: "2"
       volumes:
-      - name: workspace
-        persistentVolumeClaim:
-          claimName: opencode-workspace
+        - name: workspace
+          persistentVolumeClaim:
+            claimName: opencode-workspace

@@ -24,4 +24,4 @@ reclaimPolicy: Delete
 volumeBindingMode: Immediate
 allowVolumeExpansion: true
 mountOptions:
-- nfsvers=4.1
+  - nfsvers=4.1

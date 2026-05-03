@@ -23,48 +23,48 @@ spec:
         io.kompose.service: mc
     spec:
       containers:
-      - env:
-        - name: EULA
-          value: "TRUE"
-        - name: OPS
-          value: ninjawarrior1337
-        - name: MEMORY
-          value: "2684M"
-        image: ghcr.io/itzg/minecraft-server:2026.4.2-java25
-        name: mc
-        ports:
-        - containerPort: 25565
-          protocol: TCP
-        stdin: true
-        tty: true
-        volumeMounts:
-        - mountPath: /data
-          name: mc-data
-        resources:
-          requests:
-            memory: "2G"
-            cpu: "500m"
-          limits:
-            memory: "3G"
-            cpu: "2"
-        readinessProbe:
-          tcpSocket:
-            port: 25565
-          initialDelaySeconds: 30
-          periodSeconds: 5
-          failureThreshold: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        livenessProbe:
-          tcpSocket:
-            port: 25565
-          initialDelaySeconds: 30
-          periodSeconds: 5
-          failureThreshold: 10
-          successThreshold: 1
-          timeoutSeconds: 1
+        - env:
+            - name: EULA
+              value: "TRUE"
+            - name: OPS
+              value: ninjawarrior1337
+            - name: MEMORY
+              value: "2684M"
+          image: ghcr.io/itzg/minecraft-server:2026.4.2-java25
+          name: mc
+          ports:
+            - containerPort: 25565
+              protocol: TCP
+          stdin: true
+          tty: true
+          volumeMounts:
+            - mountPath: /data
+              name: mc-data
+          resources:
+            requests:
+              memory: "2G"
+              cpu: "500m"
+            limits:
+              memory: "3G"
+              cpu: "2"
+          readinessProbe:
+            tcpSocket:
+              port: 25565
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            failureThreshold: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          livenessProbe:
+            tcpSocket:
+              port: 25565
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            failureThreshold: 10
+            successThreshold: 1
+            timeoutSeconds: 1
       restartPolicy: Always
       volumes:
-      - name: mc-data
-        persistentVolumeClaim:
-          claimName: mc-data
+        - name: mc-data
+          persistentVolumeClaim:
+            claimName: mc-data

@@ -11,8 +11,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - name: "25565"
-    port: 25565
-    targetPort: 25565
+    - name: "25565"
+      port: 25565
+      targetPort: 25565
   selector:
     io.kompose.service: mc

@@ -5,13 +5,13 @@ metadata:
 spec:
   ingressClassName: cloudflare-tunnel
   rules:
-  - host: hass2.treelar.xyz
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: home-assistant
-            port:
-              number: 8123
+    - host: hass2.treelar.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: home-assistant
+                port:
+                  number: 8123

@@ -7,5 +7,5 @@ spec:
   selector:
     app: home-assistant
   ports:
-  - port: 8123
-    targetPort: web
+    - port: 8123
+      targetPort: web
