@@ -20,7 +20,7 @@ spec:
             value: "1"
       containers:
         - name: opencode
-          image: ghcr.io/anomalyco/opencode:1.17.17
+          image: ghcr.io/anomalyco/opencode:1.17.18
           command: ["opencode", "serve", "--hostname", "0.0.0.0"]
           ports:
             - containerPort: 4096
