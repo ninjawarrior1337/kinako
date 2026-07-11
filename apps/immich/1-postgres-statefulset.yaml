@@ -31,13 +31,10 @@ spec:
               value: immich
             - name: POSTGRES_INITDB_ARGS
               value: --data-checksums
-          securityContext:
-            runAsUser: 999
-            runAsGroup: 999
           args:
             - postgres
             - -c
-            - shared_preload_libraries=vectors.so
+            - shared_preload_libraries=vectors.so,vchord.so
             - -c
             - search_path=$$user, public, vectors
             - -c
