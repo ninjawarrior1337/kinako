@@ -1,0 +1,24 @@
+namespace: apps
+
+resources:
+  - 0-pvc-library.yaml
+  - 0-pvc-ml-cache.yaml
+  - 1-postgres-statefulset.yaml
+  - 1-valkey-deployment.yaml
+  - 1-immich-server-deployment.yaml
+  - 1-immich-ml-deployment.yaml
+  - 2-postgres-svc.yaml
+  - 2-valkey-svc.yaml
+  - 2-immich-server-svc.yaml
+  - 2-immich-ml-svc.yaml
+  - 4-secrets.yaml
+
+images:
+  - name: ghcr.io/immich-app/immich-server
+    newTag: v3.0.1
+  - name: ghcr.io/immich-app/immich-machine-learning
+    newTag: v3.0.1
+  - name: ghcr.io/immich-app/postgres
+    newTag: 14-vectorchord0.4.3-pgvectors0.2.0
+  - name: docker.io/valkey/valkey
+    newTag: "9"

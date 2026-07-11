@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: immich-server
+  labels:
+    app: immich-server
+spec:
+  type: LoadBalancer
+  loadBalancerClass: tailscale
+  selector:
+    app: immich-server
+  ports:
+    - port: 2283
+      targetPort: 2283
+      name: http

@@ -1,3 +1,4 @@
 *.agekey
 *.sec.yaml
 compose.yaml
+.pi-subagents/
