@@ -16,10 +16,7 @@ spec:
     spec:
       containers:
         - name: immich-server
-          image: ghcr.io/immich-app/immich-server:v3.0.2
-          command:
-            - start.sh
-            - immich
+          image: ghcr.io/immich-app/immich-server:v3.0.1
           env:
             - name: TZ
               value: Etc/UTC

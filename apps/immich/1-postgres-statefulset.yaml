@@ -31,7 +31,10 @@ spec:
               value: immich
             - name: POSTGRES_INITDB_ARGS
               value: --data-checksums
-          command:
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+          args:
             - postgres
             - -c
             - shared_preload_libraries=vectors.so
