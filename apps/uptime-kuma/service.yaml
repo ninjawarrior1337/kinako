@@ -5,7 +5,8 @@ metadata:
   labels:
     app: uptime-kuma
 spec:
-  type: ClusterIP
+  type: LoadBalancer
+  loadBalancerClass: tailscale
   ports:
     - port: 3001
       targetPort: 3001
