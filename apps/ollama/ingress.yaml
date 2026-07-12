@@ -1,16 +1,16 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: uptime-kuma
+  name: ollama
   annotations:
     tailscale.com/proxy-group: web-proxies
 spec:
-  defaultBackend:
-    service:
-      name: uptime-kuma
-      port:
-        number: 3001
   ingressClassName: tailscale
   tls:
-  - hosts:
-    - uptime
+    - hosts:
+        - ollama
+  defaultBackend:
+    service:
+      name: ollama
+      port:
+        number: 11434

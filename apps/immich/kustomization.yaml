@@ -11,6 +11,7 @@ resources:
   - 2-valkey-svc.yaml
   - 2-immich-server-svc.yaml
   - 2-immich-ml-svc.yaml
+  - ./ingress.yaml
   - 4-secrets.yaml
 
 images:

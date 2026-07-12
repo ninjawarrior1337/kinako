@@ -2,3 +2,4 @@ resources:
   - ./ollama-claim0-persistentvolumeclaim.yaml
   - ./ollama-deployment.yaml
   - ./ollama-service.yaml
+  - ./ingress.yaml

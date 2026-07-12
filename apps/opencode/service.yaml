@@ -5,8 +5,7 @@ metadata:
   labels:
     app: opencode
 spec:
-  type: LoadBalancer
-  loadBalancerClass: tailscale
+  type: ClusterIP
   ports:
     - port: 4096
       targetPort: 4096

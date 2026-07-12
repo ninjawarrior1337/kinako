@@ -5,8 +5,7 @@ metadata:
   labels:
     app: immich-server
 spec:
-  type: LoadBalancer
-  loadBalancerClass: tailscale
+  type: ClusterIP
   selector:
     app: immich-server
   ports:
