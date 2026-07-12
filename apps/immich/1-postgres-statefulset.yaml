@@ -8,9 +8,6 @@ spec:
       app: immich-postgres
   serviceName: immich-postgres
   replicas: 1
-  persistentVolumeClaimRetentionPolicy:
-    whenDeleted: Delete
-    whenScaled: Retain
   template:
     metadata:
       labels:
