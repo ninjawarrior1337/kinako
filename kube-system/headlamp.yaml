@@ -48,16 +48,15 @@ kind: Ingress
 metadata:
   name: headlamp
   namespace: kube-system
+  annotations:
+    tailscale.com/proxy-group: web-proxies
 spec:
-  ingressClassName: cloudflare-tunnel
-  rules:
-    - host: dash.k.treelar.xyz # <- REPLACE ME!
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: headlamp
-                port:
-                  number: 80
+  ingressClassName: tailscale
+  tls:
+    - hosts:
+        - headlamp
+  defaultBackend:
+    service:
+      name: headlamp
+      port:
+        number: 80
