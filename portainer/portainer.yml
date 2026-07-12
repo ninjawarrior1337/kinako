@@ -18,9 +18,9 @@ roleRef:
   kind: ClusterRole
   name: cluster-admin
 subjects:
-- kind: ServiceAccount
-  name: portainer-sa-clusteradmin
-  namespace: portainer
+  - kind: ServiceAccount
+    name: portainer-sa-clusteradmin
+    namespace: portainer
 ---
 apiVersion: v1
 kind: Service
@@ -32,10 +32,10 @@ spec:
   selector:
     app: portainer-agent
   ports:
-  - name: http
-    protocol: TCP
-    port: 9001
-    targetPort: 9001
+    - name: http
+      protocol: TCP
+      port: 9001
+      targetPort: 9001
 ---
 apiVersion: v1
 kind: Service
@@ -63,21 +63,21 @@ spec:
     spec:
       serviceAccountName: portainer-sa-clusteradmin
       containers:
-      - name: portainer-agent
-        image: portainer/agent:2.33.6
-        imagePullPolicy: Always
-        env:
-        - name: LOG_LEVEL
-          value: DEBUG
-        - name: AGENT_CLUSTER_ADDR
-          value: "portainer-agent-headless"
-        - name: KUBERNETES_POD_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP
-        ports:
-        - containerPort: 9001
-          protocol: TCP
+        - name: portainer-agent
+          image: portainer/agent:2.33.6
+          imagePullPolicy: Always
+          env:
+            - name: LOG_LEVEL
+              value: DEBUG
+            - name: AGENT_CLUSTER_ADDR
+              value: "portainer-agent-headless"
+            - name: KUBERNETES_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          ports:
+            - containerPort: 9001
+              protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
