@@ -5,3 +5,4 @@ resources:
   - ./ollama
   - ./opencode
   - ./immich
+  - ./uptime-kuma
