@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: uptime-kuma
   annotations:
-    tailscale.com/proxy-group: web-proxies
+    # tailscale.com/proxy-group: web-proxies
     tailscale.com/funnel: "true"
 spec:
   defaultBackend:
@@ -13,5 +13,5 @@ spec:
         number: 3001
   ingressClassName: tailscale
   tls:
-  - hosts:
-    - uptime
+    - hosts:
+        - uptime
