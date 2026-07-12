@@ -4,6 +4,7 @@ metadata:
   name: uptime-kuma
   annotations:
     tailscale.com/proxy-group: web-proxies
+    tailscale.com/funnel: "true"
 spec:
   defaultBackend:
     service:
