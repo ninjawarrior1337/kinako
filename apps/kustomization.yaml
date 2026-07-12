@@ -6,3 +6,4 @@ resources:
   - ./opencode
   - ./immich
   - ./uptime-kuma
+  - ./hass
