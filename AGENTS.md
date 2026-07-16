@@ -14,7 +14,7 @@ Secrets follow a two-file pattern:
 1. **Edit** the `.sec.yaml` file with real secret values (plaintext).
 
 ```
-kube-system/juicefs-secret.sec.yaml    ← unencrypted, local only
+path/to/secret.sec.yaml    ← unencrypted, local only
 ```
 
 2. **Encrypt** it into the committed `.yaml` file:
@@ -27,7 +27,7 @@ sops --encrypt --age <recipient> path/to/secret.sec.yaml > path/to/secret.yaml
 3. **Commit** the encrypted `.yaml` file. Flux syncs it and decrypts on the cluster automatically.
 
 ```
-kube-system/juicefs-secret.yaml        ← SOPS-encrypted, in git
+path/to/secret.yaml        ← SOPS-encrypted, in git
 ```
 
 ### Never
