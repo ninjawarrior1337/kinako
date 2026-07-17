@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         app: immich-server
+      annotations:
+        secret.reloader.stakater.com/reload: "immich-secrets"
     spec:
       containers:
         - name: immich-server

@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         app: cliproxyapi
+      annotations:
+        secret.reloader.stakater.com/reload: "cliproxyapi-config"
     spec:
       dnsConfig:
         options:

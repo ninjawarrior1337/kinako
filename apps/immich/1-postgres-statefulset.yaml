@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app: immich-postgres
+      annotations:
+        secret.reloader.stakater.com/reload: "immich-secrets"
     spec:
       containers:
         - name: postgres
