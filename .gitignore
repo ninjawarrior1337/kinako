@@ -2,3 +2,5 @@
 *.sec.yaml
 compose.yaml
 .pi-subagents/
+.claude
+.DS_Store
