@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cliproxyapi
+spec:
+  ingressClassName: tailscale
+  tls:
+    - hosts:
+        - cliproxyapi
+  defaultBackend:
+    service:
+      name: cliproxyapi
+      port:
+        number: 8317

@@ -7,3 +7,4 @@ resources:
   - ./immich
   - ./uptime-kuma
   - ./hass
+  - ./cliproxyapi

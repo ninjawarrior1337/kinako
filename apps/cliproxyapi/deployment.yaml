@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cliproxyapi
+  labels:
+    app: cliproxyapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cliproxyapi
+  template:
+    metadata:
+      labels:
+        app: cliproxyapi
+    spec:
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
+      containers:
+        - name: cliproxyapi
+          image: docker.io/eceasy/cli-proxy-api:latest
+          ports:
+            - containerPort: 8317
+              name: http
+          env:
+            - name: TZ
+              value: America/Los_Angeles
+          volumeMounts:
+            - name: config
+              mountPath: /CLIProxyAPI/config.yaml
+              subPath: config.yaml
+            - name: data
+              mountPath: /root/.cli-proxy-api
+              subPath: auth
+            - name: data
+              mountPath: /CLIProxyAPI/plugins
+              subPath: plugins
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+      volumes:
+        - name: config
+          secret:
+            secretName: cliproxyapi-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: cliproxyapi-data
