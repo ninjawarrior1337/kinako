@@ -47,22 +47,31 @@ spec:
             limits:
               memory: "3G"
               cpu: "2"
+          startupProbe:
+            exec:
+              command:
+                - mc-health
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 30
+            successThreshold: 1
+            timeoutSeconds: 30
           readinessProbe:
-            tcpSocket:
-              port: 25565
-            initialDelaySeconds: 30
-            periodSeconds: 5
-            failureThreshold: 10
+            exec:
+              command:
+                - mc-health
+            periodSeconds: 10
+            failureThreshold: 3
             successThreshold: 1
-            timeoutSeconds: 1
+            timeoutSeconds: 30
           livenessProbe:
-            tcpSocket:
-              port: 25565
-            initialDelaySeconds: 30
-            periodSeconds: 5
-            failureThreshold: 10
+            exec:
+              command:
+                - mc-health
+            periodSeconds: 10
+            failureThreshold: 3
             successThreshold: 1
-            timeoutSeconds: 1
+            timeoutSeconds: 30
       restartPolicy: Always
       volumes:
         - name: mc-data
