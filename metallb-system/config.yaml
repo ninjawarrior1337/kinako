@@ -7,6 +7,25 @@ spec:
     - 192.168.3.16-192.168.3.254
 ---
 apiVersion: metallb.io/v1beta1
-kind: L2Advertisement
+kind: BFDProfile
 metadata:
-  name: l2-advertisement
+  name: opnsense-bfd
+  namespace: metallb-system
+spec:
+  receiveInterval: 380
+  transmitInterval: 270
+---
+apiVersion: metallb.io/v1beta2
+kind: BGPPeer
+metadata:
+  name: opnsense-peer
+spec:
+  myASN: 64513
+  peerASN: 64512
+  peerAddress: 192.168.0.1
+  bfdProfile: opnsense-bfd
+---
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  name: bgp-advertisement
