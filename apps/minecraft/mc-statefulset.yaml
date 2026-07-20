@@ -24,7 +24,7 @@ spec:
               value: "2684M"
             - name: MC_PORT
               value: "25565"
-          image: ghcr.io/itzg/minecraft-server:2026.7.0-java25
+          image: ghcr.io/itzg/minecraft-server:2026.7.2-java25
           name: mc
           ports:
             - containerPort: 25565
