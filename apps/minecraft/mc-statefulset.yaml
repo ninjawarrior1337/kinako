@@ -1,26 +1,18 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -f compose.yaml
-    kompose.version: 1.37.0 (HEAD)
-  labels:
-    io.kompose.service: mc
-  name: minecraft
+  name: vanilla-minecraft
 spec:
-  replicas: 1
+  replicas: 0
+  serviceName: vanilla-minecraft
+  podManagementPolicy: OrderedReady
   selector:
     matchLabels:
-      io.kompose.service: mc
-  strategy:
-    type: Recreate
+      app: vanilla-minecraft
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert -f compose.yaml
-        kompose.version: 1.37.0 (HEAD)
       labels:
-        io.kompose.service: mc
+        app: vanilla-minecraft
     spec:
       containers:
         - env:

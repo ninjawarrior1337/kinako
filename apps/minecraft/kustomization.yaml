@@ -1,5 +1,5 @@
 resources:
   - ./mc-data-persistentvolumeclaim.yaml
-  - ./mc-deployment.yaml
+  - ./mc-statefulset.yaml
   - ./mc-service.yaml
   - ./mc-router.yaml

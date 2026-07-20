@@ -2,14 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: kompose convert -f compose.yaml
-    kompose.version: 1.37.0 (HEAD)
     "mc-router.itzg.me/externalServerName": "vanilla.mc.treelar.xyz"
-  labels:
-    io.kompose.service: mc
-  name: vanilla-mc
+    "mc-router.itzg.me/autoScaleUp": "true"
+    "mc-router.itzg.me/autoScaleDown": "true"
+  name: vanilla-minecraft
 spec:
+  clusterIP: None
   ports:
     - port: 25565
   selector:
-    io.kompose.service: mc
+    app: vanilla-minecraft

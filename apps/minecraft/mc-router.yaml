@@ -12,6 +12,12 @@ rules:
 - apiGroups: [""]
   resources: ["services"]
   verbs: ["watch","list"]
+- apiGroups: ["apps"]
+  resources: ["statefulsets"]
+  verbs: ["watch","list","patch"]
+- apiGroups: ["apps"]
+  resources: ["statefulsets/scale"]
+  verbs: ["get"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -64,7 +70,13 @@ spec:
       containers:
       - image: itzg/mc-router:latest
         name: mc-router
-        args: ["--api-binding", ":8080", "--in-kube-cluster"]
+        args:
+          - "--api-binding"
+          - ":8080"
+          - "--in-kube-cluster"
+          - "--auto-scale-up"
+          - "--auto-scale-down"
+          - "--auto-scale-down-after=30m"
         ports:
         - name: proxy
           containerPort: 25565
