@@ -7,7 +7,6 @@ metadata:
     "mc-router.itzg.me/autoScaleDown": "true"
   name: vanilla-minecraft
 spec:
-  clusterIP: None
   ports:
     - port: 25565
   selector:
