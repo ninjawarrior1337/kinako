@@ -77,6 +77,8 @@ spec:
           - "--auto-scale-up"
           - "--auto-scale-down"
           - "--auto-scale-down-after=30m"
+          - "--auto-scale-asleep-motd=§7Server is sleeping §8» §eJoin to wake it up!"
+          - "--auto-scale-loading-motd=§7Server is starting up §8» §aPlease wait..."
         ports:
         - name: proxy
           containerPort: 25565
