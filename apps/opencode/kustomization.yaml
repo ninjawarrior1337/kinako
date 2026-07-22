@@ -1,5 +1,0 @@
-resources:
-  - ./workspace-pvc.yaml
-  - ./deployment.yaml
-  - ./service.yaml
-  - ./ingress.yaml

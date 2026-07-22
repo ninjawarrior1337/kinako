@@ -3,7 +3,6 @@ resources:
   - ns.yaml
   - ./minecraft
   - ./ollama
-  - ./opencode
   - ./immich
   - ./uptime-kuma
   - ./hass
