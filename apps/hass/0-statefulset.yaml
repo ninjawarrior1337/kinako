@@ -26,6 +26,13 @@ spec:
               name: web
           securityContext:
             privileged: true
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "200m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
           volumeMounts:
             - name: hass-data
               mountPath: /config
