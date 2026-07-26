@@ -37,16 +37,15 @@ kind: Service
 metadata:
   name: mc-router
 spec:
-  type: NodePort
+  type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
   - targetPort: web
     name: web
     port: 8080
-    nodePort: 30880
   - targetPort: proxy
     name: proxy
     port: 25565
-    nodePort: 31219
   selector:
     run: mc-router
 ---
