@@ -44,6 +44,8 @@ spec:
             - shared_buffers=512MB
             - -c
             - wal_compression=on
+            - -c
+            - max_connections=200
           ports:
             - containerPort: 5432
               name: postgres
