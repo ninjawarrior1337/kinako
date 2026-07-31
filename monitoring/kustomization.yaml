@@ -2,3 +2,4 @@ namespace: monitoring
 resources:
   - ns.yaml
   - grafana.yaml
+  - prom.yaml
