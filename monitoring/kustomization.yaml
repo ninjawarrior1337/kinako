@@ -3,3 +3,4 @@ resources:
   - ns.yaml
   - grafana.yaml
   - prom.yaml
+  - kube-state-metrics.yaml

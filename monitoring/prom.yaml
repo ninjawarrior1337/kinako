@@ -101,6 +101,10 @@ data:
           - target_label: __metrics_path__
             replacement: /metrics/cadvisor
 
+      - job_name: "kube-state-metrics"
+        static_configs:
+          - targets: ["kube-state-metrics.monitoring.svc:8080"]
+
       - job_name: "kubernetes-service-endpoints"
         kubernetes_sd_configs:
           - role: endpoints
