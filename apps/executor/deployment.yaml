@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: executor
+  labels:
+    app: executor
+spec:
+  replicas: 1
+  # SQLite over a single ReadWriteOnce volume: never run two writers at once.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: executor
+  template:
+    metadata:
+      labels:
+        app: executor
+    spec:
+      containers:
+        - name: executor
+          image: ghcr.io/rhyssullivan/executor-selfhost:v1.6.8
+          ports:
+            - containerPort: 4788
+              name: http
+          env:
+            - name: TZ
+              value: America/Los_Angeles
+            - name: EXECUTOR_WEB_BASE_URL
+              value: https://executor.tail5158.ts.net
+            - name: EXECUTOR_DATA_DIR
+              value: /data
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: executor-data

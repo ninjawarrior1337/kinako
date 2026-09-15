@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: executor
+  annotations:
+    tailscale.com/proxy-group: web-proxies
+spec:
+  defaultBackend:
+    service:
+      name: executor
+      port:
+        number: 4788
+  ingressClassName: tailscale
+  tls:
+    - hosts:
+        - executor

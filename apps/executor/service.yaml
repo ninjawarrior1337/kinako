@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: executor
+  labels:
+    app: executor
+spec:
+  type: ClusterIP
+  ports:
+    - port: 4788
+      targetPort: 4788
+      name: http
+  selector:
+    app: executor
