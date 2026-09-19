@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: executor
-          image: ghcr.io/rhyssullivan/executor-selfhost:v1.6.8
+          image: ghcr.io/rhyssullivan/executor-selfhost:v1.6.10
           ports:
             - containerPort: 4788
               name: http
