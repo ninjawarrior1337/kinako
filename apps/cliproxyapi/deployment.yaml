@@ -22,7 +22,7 @@ spec:
             value: "1"
       containers:
         - name: cliproxyapi
-          image: docker.io/eceasy/cli-proxy-api:v7.3.15
+          image: docker.io/eceasy/cli-proxy-api:v7.3.17
           ports:
             - containerPort: 8317
               name: http
