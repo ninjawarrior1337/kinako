@@ -180,6 +180,19 @@ comes back `401 Invalid API key`.
   match *all* array entries; without it nothing is removed. Be aware that Grok then
   loses the grouped MCP/sub-agent tools.
 
+- **Muse Spark rejects `web_search.search_content_types`** (`d6ad3d1`), which Codex
+  sets by default:
+  `400 'tools[].search_content_types' is only supported for web_search_preview tools.`
+  The message is wrong — `web_search_preview` with the same field fails identically.
+  Every other backend accepts the field, so `payload.filter` drops it for
+  `muse-spark-*` only, keeping image-search results for the rest. If a newly added
+  model returns `invalid_request_error` about a tool field, see the note below.
+
+- **Codex's tool payload is the usual source of `4xx` from OpenCode Go.** If a model
+  newly fails, replay the request from `/root/.cli-proxy-api/logs/` against a local
+  container and bisect the `tools` array before assuming the proxy is at fault — the
+  two cases above were both found that way, and both only break on *some* backends.
+
 - **`kimi-k2.6`** is listed on the OpenCode Go docs page but is not registered here.
   Add it to `openai-compatibility` if you want it.
 
