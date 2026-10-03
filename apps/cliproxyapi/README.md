@@ -167,18 +167,23 @@ comes back `401 Invalid API key`.
 
 ## Known issues
 
-- **Grok 4.7 / 4.6 are intentionally removed** (`b48757c`). OpenCode Go's Grok backend
-  rejects two Codex-specific tool shapes that every other backend accepts, failing with
-  opaque errors instead of a useful message:
+- **Grok 4.7 / 4.6 are registered, but run with no compatibility filtering**
+  (`49d6627`, after a brief removal in `b48757c`). OpenCode Go's Grok backend rejects
+  two Codex-specific tool shapes that every other backend accepts, failing with opaque
+  errors instead of a useful message:
   - `tools[].type == "namespace"` (Codex's grouped MCP/sub-agent tools) →
     `422 Upstream request failed: Endpoint is unavailable.`
-  - `web_search.external_web_access` / `search_content_types` →
+  - `web_search.external_web_access` →
     `400 Argument not supported: external_web_access`
+  (`web_search.search_content_types` is fine on Grok — unlike Muse Spark.)
 
-  To re-add them, also add a `payload.filter` for the Grok models (see commit
-  `5ebe4f2`) using `tools.#(type=="namespace")#` — the trailing `#` is required to
-  match *all* array entries; without it nothing is removed. Be aware that Grok then
-  loses the grouped MCP/sub-agent tools.
+  So Grok works for plain traffic and for clients that don't send those shapes, and
+  fails on any Codex turn that does. If you want to make it work under Codex, either
+  turn the tools off client-side (`[features] multi_agent = false` plus dropping the
+  `[mcp_servers.*]` entries) or add a model-scoped `payload.filter` for `grok-*` using
+  `tools.#(type=="namespace")#` (the trailing `#` is required to match *all* array
+  entries — without it nothing is removed) and
+  `tools.#(type=="web_search").external_web_access`; see commit `5ebe4f2`.
 
 - **Muse Spark rejects `web_search.search_content_types`** (`d6ad3d1`), which Codex
   sets by default:
