@@ -7,8 +7,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 4788
-      targetPort: 4788
+    - port: 4400
+      targetPort: 4400
       name: http
   selector:
     app: executor

@@ -9,7 +9,7 @@ spec:
     service:
       name: executor
       port:
-        number: 4788
+        number: 4400
   ingressClassName: tailscale
   tls:
     - hosts:

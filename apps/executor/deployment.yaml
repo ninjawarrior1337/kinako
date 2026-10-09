@@ -7,6 +7,7 @@ metadata:
 spec:
   replicas: 1
   # SQLite over a single ReadWriteOnce volume: never run two writers at once.
+  # v2 uses an embedded PGlite database under /app/data (same constraint).
   strategy:
     type: Recreate
   selector:
@@ -19,42 +20,40 @@ spec:
     spec:
       containers:
         - name: executor
-          image: ghcr.io/rhyssullivan/executor-selfhost:v1.6.10
+          image: ghcr.io/usefulsoftwareco/executor-selfhost:2.0.0-beta.11
           ports:
-            - containerPort: 4788
+            - containerPort: 4400
               name: http
           env:
             - name: TZ
               value: America/Los_Angeles
-            - name: EXECUTOR_WEB_BASE_URL
+            - name: BETTER_AUTH_URL
               value: https://executor.tail5158.ts.net
-            - name: EXECUTOR_DATA_DIR
-              value: /data
           volumeMounts:
             - name: data
-              mountPath: /data
+              mountPath: /app/data
           readinessProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
-            initialDelaySeconds: 15
+            initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
-            initialDelaySeconds: 60
+            initialDelaySeconds: 90
             periodSeconds: 15
             timeoutSeconds: 5
             failureThreshold: 3
           resources:
             requests:
-              memory: "256Mi"
+              memory: "512Mi"
               cpu: "100m"
             limits:
-              memory: "1Gi"
+              memory: "2Gi"
               cpu: "1000m"
       volumes:
         - name: data
