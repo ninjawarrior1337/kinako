@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: executor
-          image: ghcr.io/usefulsoftwareco/executor-selfhost:2.0.0-beta.11
+          image: ghcr.io/usefulsoftwareco/executor-selfhost:2.0.0-beta.27
           ports:
             - containerPort: 4400
               name: http
