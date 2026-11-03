@@ -214,6 +214,8 @@ spec:
       upgrade.cattle.io/controller: system-upgrade-controller
   strategy:
     type: Recreate
+    # Null out the previous RollingUpdate strategy so SSA doesn't send both.
+    rollingUpdate: null
   template:
     metadata:
       labels:
