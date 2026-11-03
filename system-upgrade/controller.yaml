@@ -72,6 +72,30 @@ rules:
   verbs:
   - update
 - apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - get
+  - create
+  - patch
+  - update
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - create
+- apiGroups:
+  - coordination.k8s.io
+  resourceNames:
+  - system-upgrade-controller
+  resources:
+  - leases
+  verbs:
+  - get
+  - update
+- apiGroups:
   - upgrade.cattle.io
   resources:
   - plans
@@ -164,11 +188,13 @@ subjects:
 apiVersion: v1
 data:
   SYSTEM_UPGRADE_CONTROLLER_DEBUG: "false"
+  SYSTEM_UPGRADE_CONTROLLER_LEADER_ELECT: "true"
   SYSTEM_UPGRADE_CONTROLLER_THREADS: "2"
   SYSTEM_UPGRADE_JOB_ACTIVE_DEADLINE_SECONDS: "900"
   SYSTEM_UPGRADE_JOB_BACKOFF_LIMIT: "99"
   SYSTEM_UPGRADE_JOB_IMAGE_PULL_POLICY: Always
   SYSTEM_UPGRADE_JOB_KUBECTL_IMAGE: rancher/kubectl:v1.30.3
+  SYSTEM_UPGRADE_JOB_KUBECTL_IMAGE_WINDOWS: ""
   SYSTEM_UPGRADE_JOB_PRIVILEGED: "true"
   SYSTEM_UPGRADE_JOB_TTL_SECONDS_AFTER_FINISH: "900"
   SYSTEM_UPGRADE_PLAN_POLLING_INTERVAL: 15m
@@ -186,9 +212,13 @@ spec:
   selector:
     matchLabels:
       upgrade.cattle.io/controller: system-upgrade-controller
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
+        app.kubernetes.io/component: controller
+        app.kubernetes.io/name: system-upgrade-controller
         upgrade.cattle.io/controller: system-upgrade-controller
     spec:
       affinity:
@@ -198,6 +228,19 @@ spec:
             - matchExpressions:
               - key: node-role.kubernetes.io/control-plane
                 operator: Exists
+              - key: kubernetes.io/os
+                operator: In
+                values:
+                - linux
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - system-upgrade-controller
+            topologyKey: kubernetes.io/hostname
       containers:
       - env:
         - name: SYSTEM_UPGRADE_CONTROLLER_NAME
@@ -208,10 +251,14 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        - name: SYSTEM_UPGRADE_CONTROLLER_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
         envFrom:
         - configMapRef:
             name: default-controller-env
-        image: rancher/system-upgrade-controller:v0.14.2
+        image: rancher/system-upgrade-controller:v0.20.2
         imagePullPolicy: IfNotPresent
         name: system-upgrade-controller
         securityContext:
