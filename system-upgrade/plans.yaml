@@ -12,8 +12,8 @@ spec:
         operator: Exists
   serviceAccountName: system-upgrade
   upgrade:
-    image: rancher/k3s-upgrade:v1.36.5-k3s1
-  version: v1.36.5+k3s1
+    image: rancher/k3s-upgrade:v1.37.1-k3s1
+  version: v1.37.1+k3s1
 ---
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
@@ -31,8 +31,8 @@ spec:
     args:
       - prepare
       - server-plan
-    image: rancher/k3s-upgrade:v1.36.5-k3s1
+    image: rancher/k3s-upgrade:v1.37.1-k3s1
   serviceAccountName: system-upgrade
   upgrade:
-    image: rancher/k3s-upgrade:v1.36.5-k3s1
-  version: v1.36.5+k3s1
+    image: rancher/k3s-upgrade:v1.37.1-k3s1
+  version: v1.37.1+k3s1
