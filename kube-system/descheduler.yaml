@@ -1,0 +1,74 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: descheduler
+  namespace: kube-system
+spec:
+  interval: 1h0m0s
+  url: https://kubernetes-sigs.github.io/descheduler/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: descheduler
+  namespace: kube-system
+spec:
+  interval: 1h0m0s
+  targetNamespace: kube-system
+  chart:
+    spec:
+      chart: descheduler
+      sourceRef:
+        kind: HelmRepository
+        name: descheduler
+      version: "0.37.0"
+  values:
+    kind: CronJob
+    schedule: "*/15 * * * *"
+    timeZone: America/Los_Angeles
+    successfulJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 1
+    ttlSecondsAfterFinished: 600
+    # Must stay shorter than the cron interval.
+    activeDeadlineSeconds: 300
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 500m
+        memory: 256Mi
+    deschedulerPolicy:
+      gracePeriodSeconds: 30
+      profiles:
+        - name: rebalance
+          pluginConfig:
+            - name: DefaultEvictor
+              args:
+                # Only evict when a replacement pod fits on an under-utilized node.
+                nodeFit: true
+                podProtections:
+                  extraEnabled:
+                    - PodsWithPVC
+                  config:
+                    PodsWithPVC:
+                      # local-path PVCs are node-bound and cannot move; protect them.
+                      # NFS-backed PVCs (maru-nfs-csi) stay evictable.
+                      protectedStorageClasses:
+                        - name: local-path
+            - name: LowNodeUtilization
+              args:
+                # Nodes below ALL of these are candidates to receive pods.
+                thresholds:
+                  cpu: 50
+                  memory: 50
+                # Nodes above ANY of these are drained.
+                targetThresholds:
+                  cpu: 70
+                  memory: 70
+                evictionLimits:
+                  node: 2
+          plugins:
+            balance:
+              enabled:
+                - LowNodeUtilization
