@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: freshrss
+  annotations:
+    tailscale.com/proxy-group: web-proxies
+spec:
+  ingressClassName: tailscale
+  tls:
+    - hosts:
+        - freshrss
+  defaultBackend:
+    service:
+      name: freshrss
+      port:
+        number: 80

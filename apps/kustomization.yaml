@@ -6,6 +6,7 @@ resources:
   - ./immich
   - ./uptime-kuma
   - ./hass
+  - ./freshrss
   - ./cliproxyapi
   - ./vaultwarden
   - ./executor

@@ -1,0 +1,11 @@
+namespace: apps
+
+resources:
+  - ./0-pvc-data.yaml
+  - ./1-deployment.yaml
+  - ./2-service.yaml
+  - ./3-ingress.yaml
+
+images:
+  - name: freshrss/freshrss
+    newTag: 1.30.4
