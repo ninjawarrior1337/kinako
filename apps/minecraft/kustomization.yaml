@@ -3,3 +3,4 @@ resources:
   - ./mc-statefulset.yaml
   - ./mc-service.yaml
   - ./mc-router.yaml
+  - ./mc-netpol.yaml

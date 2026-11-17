@@ -13,6 +13,10 @@ spec:
       labels:
         app: vanilla-minecraft
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       containers:
         - env:
             - name: EULA
@@ -23,16 +27,28 @@ spec:
               value: "2684M"
             - name: MC_PORT
               value: "25565"
+            # CVE-2026-114938 (Java4Shell): AVX-512 Base64 intrinsic OOB write.
+            # Drop this once the image ships a patched JDK (17.0.21.1 / 21.0.13.1 / 25.0.5.1+).
+            - name: JVM_XX_OPTS
+              value: "-XX:-UseBASE64Intrinsics"
           image: ghcr.io/itzg/minecraft-server:2026.11.0-java25
           name: mc
           ports:
             - containerPort: 25565
               protocol: TCP
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
           stdin: true
           tty: true
           volumeMounts:
             - mountPath: /data
               name: mc-data
+            - mountPath: /tmp
+              name: tmp
           resources:
             requests:
               memory: "2.5Gi"
@@ -70,3 +86,5 @@ spec:
         - name: mc-data
           persistentVolumeClaim:
             claimName: mc-data
+        - name: tmp
+          emptyDir: {}

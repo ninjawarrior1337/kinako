@@ -1,0 +1,35 @@
+---
+# Blast-radius containment for the Minecraft JVM: nothing reaches it except
+# mc-router, and it can only reach DNS plus HTTPS (Mojang auth/downloads).
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: vanilla-minecraft
+spec:
+  podSelector:
+    matchLabels:
+      app: vanilla-minecraft
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              run: mc-router
+      ports:
+        - protocol: TCP
+          port: 25565
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    - ports:
+        - protocol: TCP
+          port: 443
