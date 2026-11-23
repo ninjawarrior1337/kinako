@@ -31,7 +31,7 @@ spec:
             # Drop this once the image ships a patched JDK (17.0.21.1 / 21.0.13.1 / 25.0.5.1+).
             - name: JVM_XX_OPTS
               value: "-XX:-UseBASE64Intrinsics"
-          image: ghcr.io/itzg/minecraft-server:2026.11.0-java25
+          image: ghcr.io/itzg/minecraft-server:2026.11.1-java25
           name: mc
           ports:
             - containerPort: 25565
