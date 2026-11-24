@@ -8,4 +8,4 @@ resources:
 
 images:
   - name: freshrss/freshrss
-    newTag: 1.30.4
+    newTag: 1.31.0
