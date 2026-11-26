@@ -4,6 +4,7 @@ metadata:
   name: executor
   annotations:
     tailscale.com/proxy-group: web-proxies
+    tailscale.com/funnel: "true"
 spec:
   defaultBackend:
     service:
